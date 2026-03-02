@@ -1,10 +1,9 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { addPay } from "../../../features/pay/paySlice";
-
 
 export default function Pay() {
   const dispatch = useDispatch();
@@ -12,7 +11,7 @@ export default function Pay() {
 
   const { orderRef, totalAmount } = useLocalSearchParams();
   const user = useSelector((state) => state.auth.user);
-  const { paymentUrl } = useSelector((state) => state.pay);
+  const { paymentUrl, status } = useSelector((state) => state.pay);
 
   const handleSubmit = () => {
     const checkout = {
@@ -32,11 +31,9 @@ export default function Pay() {
 
   return (
     <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 20, marginBottom: 20 }}>
-        Your Orders
-      </Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>Your Orders</Text>
 
-      <Pressable
+      <TouchableOpacity
         onPress={handleSubmit}
         style={{
           backgroundColor: "#2563eb",
@@ -45,9 +42,9 @@ export default function Pay() {
         }}
       >
         <Text style={{ color: "white", textAlign: "center" }}>
-          Pay (₦{totalAmount})
+          {status === "loading" ? "please wait..." : `Pay (₦ ${totalAmount})`}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }

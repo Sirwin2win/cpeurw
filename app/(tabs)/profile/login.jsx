@@ -55,7 +55,7 @@ const Login = () => {
       />
       {/* Forgot Passord */}
       <Text
-        onPress={() => router.push("/profile/sendMail")}
+        onPress={() => router.push("/profile/SendMail")}
         style={styles.link}
       >
         forgot password?
@@ -72,6 +72,7 @@ const Login = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             borderWidth: 1,
+            placeholderTextColor: "#9CA3AF",
           }}
           value={password}
           onChangeText={setPassword}
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: "#1d4ed8",
     backgroundColor: "#fff",
+    placeholderTextColor: "#9CA3AF",
   },
   button: {
     borderRadius: 20,

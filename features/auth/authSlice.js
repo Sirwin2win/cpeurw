@@ -1,15 +1,15 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
-const TOKEN_KEY = 'userToken';
-const API_URL = 'https://api.buywaterh2o.com/api/auth' 
+const TOKEN_KEY = "userToken";
+const API_URL = "https://api.buywaterh2o.com/api/auth";
 
 /**
  * Load token from AsyncStorage on app start
  */
-export const loadToken = createAsyncThunk('auth/loadToken', async () => {
+export const loadToken = createAsyncThunk("auth/loadToken", async () => {
   const token = await AsyncStorage.getItem(TOKEN_KEY);
   return token;
 });
@@ -19,62 +19,71 @@ export const loadToken = createAsyncThunk('auth/loadToken', async () => {
  */
 
 export const updateRole = createAsyncThunk(
-  'users/update',
+  "users/update",
   async ({ id, role }, thunkAPI) => {
     try {
-       const res = await axios.put(`${API_URL}/update-role`, {
+      const res = await axios.put(`${API_URL}/update-role`, {
         role,
-        id
-       })
+        id,
+      });
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
-  }
+  },
 );
 
 /**
  * Get Users
  */
 export const getUsers = createAsyncThunk(
-  'auth/getUsers',
+  "auth/getUsers",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get(API_URL)
-      return res.data // { user, token }
+      const res = await axios.get(API_URL);
+      return res.data; // { user, token }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || { message: 'Something went wrong' })
-
+      return thunkAPI.rejectWithValue(
+        err.response?.data || { message: "Something went wrong" },
+      );
     }
-  }
-)
+  },
+);
 
 /**
  * REGISTER user
  * @param {name, email, password}
  */
 export const create = createAsyncThunk(
-  'auth/create',
-  async ({ name, email, password,address, phone },thunkAPI)  => {
+  "auth/create",
+  async ({ name, email, password, address, phone }, thunkAPI) => {
     // Replace this with your registration API endpoint
-    const response = await axios.post(`${API_URL}/register`, {
-      name,
-      email,
-      password,
-      address,
-      phone
-    });
+    try {
+      const response = await axios.post(`${API_URL}/register`, {
+        name,
+        email,
+        password,
+        address,
+        phone,
+      });
 
-    const data = response.data;
+      const data = response.data;
 
-    if (!data) {
-      throw new Error('Registration failed: user not created');
+      if (!data) {
+        throw new Error("Registration failed: user not created");
+      }
+
+      // await AsyncStorage.setItem(TOKEN_KEY, data.token);
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || {
+          message: "Something went wrong. Please try again.",
+        },
+      );
     }
-
-    // await AsyncStorage.setItem(TOKEN_KEY, data.token);
-
-    return data;
-  }
+  },
 );
 
 /**
@@ -83,7 +92,7 @@ export const create = createAsyncThunk(
 
 // 🔐 Login
 export const login = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
       const res = await axios.post(`${API_URL}/login`, {
@@ -93,7 +102,7 @@ export const login = createAsyncThunk(
 
       // Store token (and possibly user info) in localStorage
       // localStorage.setItem('token', res.data.token);
-       AsyncStorage.setItem('token',res.data.token);
+      AsyncStorage.setItem("token", res.data.token);
 
       // Optional: if your backend sends user data, store it too
       // localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -102,111 +111,113 @@ export const login = createAsyncThunk(
     } catch (err) {
       // Better safe fallback error message
       return thunkAPI.rejectWithValue(
-        err.response?.data || { message: 'Something went wrong. Please try again.' }
+        err.response?.data?.message || {
+          message: "Something went wrong. Please try again.",
+        },
       );
     }
-  }
+  },
 );
-
 
 /**
  * LOGOUT user
  */
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logout = createAsyncThunk("auth/logout", async () => {
   await AsyncStorage.removeItem(TOKEN_KEY);
   return null;
 });
 
-
-
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     token: null,
     user: null,
     users: [],
-    status: 'idle', // idle | loading | succeeded | failed
+    status: "idle", // idle | loading | succeeded | failed
     error: null,
     isLoaded: false, // AsyncStorage checked
   },
   reducers: {},
 
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       // LOAD TOKEN
-      .addCase(loadToken.pending, state => {
-        state.status = 'loading';
+      .addCase(loadToken.pending, (state) => {
+        state.status = "loading";
       })
       .addCase(loadToken.fulfilled, (state, action) => {
         state.token = action.payload;
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.isLoaded = true;
       })
-      .addCase(loadToken.rejected, state => {
-        state.status = 'failed';
-        state.error = 'error';
+      .addCase(loadToken.rejected, (state) => {
+        state.status = "failed";
+        state.error = "error";
       })
 
       // Get Users
       .addCase(getUsers.pending, (state) => {
-        state.status = 'loading'
-        state.error = null
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(getUsers.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = "succeeded";
         state.users = action.payload;
-        AsyncStorage.setItem('userProfile', JSON.stringify(action.payload.user));
+        AsyncStorage.setItem(
+          "userProfile",
+          JSON.stringify(action.payload.user),
+        );
       })
       .addCase(getUsers.rejected, (state, action) => {
-        state.status = 'failed'
-       state.error = action.payload;
+        state.status = "failed";
+        state.error = action.payload;
       })
-     // update user
-           .addCase(updateRole.pending, (state) => {
-             state.status = 'loading';
-             state.error = null;
-           })
-          .addCase(updateRole.fulfilled, (state, action) => {
-             state.status = 'succeeded';
-             const index = state.users.findIndex(p => p.id === action.payload.id);
-             if (index !== -1) {
-               state.users[index] = action.payload;
-             }
-             state.users = action.payload;
-           })
-           .addCase(updateRole.rejected, (state, action) => {
-             state.status = 'failed';
-             state.error = action.payload;
-           })
+      // update user
+      .addCase(updateRole.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateRole.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const index = state.users.findIndex((p) => p.id === action.payload.id);
+        if (index !== -1) {
+          state.users[index] = action.payload;
+        }
+        state.users = action.payload;
+      })
+      .addCase(updateRole.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
 
       // REGISTER
-      .addCase(create.pending, state => {
-        state.status = 'loading';
+      .addCase(create.pending, (state) => {
+        state.status = "loading";
         state.error = null;
       })
       .addCase(create.fulfilled, (state, action) => {
         // state.token = action.payload; // token returned from API
-        state.user = action.payload.user
-        state.status = 'succeeded';
-        state.status = 'success'
+        state.user = action.payload.user;
+        state.status = "succeeded";
+        state.status = "success";
       })
       .addCase(create.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
       })
 
-       /* Login */
-       /* LOGIN */
-      .addCase(login.pending, state => {
-        state.status = 'loading';
+      /* Login */
+      /* LOGIN */
+      .addCase(login.pending, (state) => {
+        state.status = "loading";
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         // const token = action.payload;
-        state.status = 'succeeded';
+        state.status = "succeeded";
         // state.token = token.token;
         const { token } = action.payload;
-// console.log(token)
+        // console.log(token)
         try {
           const decoded = jwtDecode(token);
           state.user = {
@@ -216,20 +227,18 @@ const authSlice = createSlice({
             token,
           };
         } catch (err) {
-          console.error('JWT decode failed:', err);
+          console.error("JWT decode failed:", err);
         }
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload;
       })
 
-
       // LOGOUT
-      .addCase(logout.fulfilled, state => {
+      .addCase(logout.fulfilled, (state) => {
         state.token = null;
       });
   },
 });
-
 export default authSlice.reducer;

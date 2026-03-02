@@ -6,7 +6,7 @@ export default function ProfileStack() {
       <Stack.Screen name="login" options={{ title: "Login" }} />
       <Stack.Screen name="register" options={{ title: "Register" }} />
       <Stack.Screen name="sidebar" options={{ title: "Dashbaord" }} />
-      <Stack.Screen name="sendMail" options={{ title: "Reset Mail" }} />
+      <Stack.Screen name="SendMail" options={{ title: "Reset Mail" }} />
     </Stack>
   );
 }

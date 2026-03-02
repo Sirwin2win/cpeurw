@@ -8,7 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
 
 const { width } = Dimensions.get("window");
@@ -18,37 +18,36 @@ export default function Index() {
   // const { items, status } = useSelector((state) => state.products);
   // const dispatch = useDispatch();
 
- const items = [
-  {
-    id: "1",
-    name: "Sachet Water",
-    description: "CPEURW Sachet Water is premium-quality purified drinking water conveniently packaged in 500ml heat-sealed sachets, designed to provide safe, hygienic, and refreshing hydration for everyone.",
-    // price: "250",
-    image: require("../../assets/images/S1.jpg"),
-  },
-  {
-    id: "2",
-    name: "Dispenser Water",
-    description: "CPEURW Dispenser Water is premium-quality drinking water packaged in refillable 18.9L (or 19L) polycarbonate bottles, designed for use with water dispensers in homes, offices, schools, and commercial spaces. ",
-    // price: "1500",
-    image: require("../../assets/images/D1.jpg"),
-  },
-  {
-    id: "3",
-    name: "Bottled Water",
-    description: "CPEURW Bottled Water is premium-grade, crystal-clear drinking water, expertly purified and bottled to deliver safe, refreshing, and great-tasting hydration for every lifestyle.",
-    // price: "200",
-    image: require("../../assets/images/B2.jpg"),
-  },
-];
-
+  const items = [
+    {
+      id: "1",
+      name: "Sachet Water",
+      description:
+        "CPEURW Sachet Water is premium-quality purified drinking water conveniently packaged in 500ml heat-sealed sachets, designed to provide safe, hygienic, and refreshing hydration for everyone.",
+      // price: "250",
+      image: require("../../assets/images/S1.jpg"),
+    },
+    {
+      id: "2",
+      name: "Dispenser Water",
+      description:
+        "CPEURW Dispenser Water is premium-quality drinking water packaged in refillable 18.9L (or 19L) polycarbonate bottles, designed for use with water dispensers in homes, offices, schools, and commercial spaces. ",
+      // price: "1500",
+      image: require("../../assets/images/D1.jpg"),
+    },
+    {
+      id: "3",
+      name: "Bottled Water",
+      description:
+        "CPEURW Bottled Water is premium-grade, crystal-clear drinking water, expertly purified and bottled to deliver safe, refreshing, and great-tasting hydration for every lifestyle.",
+      // price: "200",
+      image: require("../../assets/images/B2.jpg"),
+    },
+  ];
 
   const flatListRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
-
-
-
 
   /* ⏱ Auto slide (safe) */
   useEffect(() => {
@@ -71,16 +70,11 @@ export default function Index() {
   /* 🧩 Render product card */
   const renderItem = ({ item }) => (
     <View style={styles.card}>
-      <Image
-        source={item.image}
-        style={styles.image}
-        contentFit="contain"
-      />
+      <Image source={item.image} style={styles.image} contentFit="contain" />
 
       <View style={styles.content}>
         <Text style={styles.brandTitle}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
-
       </View>
     </View>
   );
@@ -93,7 +87,7 @@ export default function Index() {
     >
       {/* 🖼 Banner */}
       <Image
-        source={require("../../assets/images/DD.jpg")}
+        source={require("../../assets/images/coolAnim.gif")}
         style={styles.banner}
       />
       <Text style={styles.brandTitle}>CPEURW Dispenser</Text>
@@ -114,25 +108,19 @@ export default function Index() {
           index,
         })}
         onMomentumScrollEnd={(e) => {
-          const index = Math.round(
-            e.nativeEvent.contentOffset.x / width
-          );
+          const index = Math.round(e.nativeEvent.contentOffset.x / width);
           setCurrentIndex(index);
         }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
+          { useNativeDriver: false },
         )}
       />
 
       {/* 🎨 Animated Dots */}
       <View style={styles.dotsContainer}>
         {items.map((_, i) => {
-          const inputRange = [
-            (i - 1) * width,
-            i * width,
-            (i + 1) * width,
-          ];
+          const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
           const dotWidth = scrollX.interpolate({
             inputRange,
@@ -214,7 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#111",
-    textAlign:'center'
+    textAlign: "center",
   },
 
   description: {
