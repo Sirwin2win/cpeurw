@@ -53,6 +53,7 @@ const register = () => {
 
         <TextInput
           placeholder="Full Name"
+          placeholderTextColor="#9CA3AF"
           style={{
             borderWidth: 1,
             padding: "5%",
@@ -60,13 +61,13 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
-            placeholderTextColor: "#9CA3AF",
           }}
           value={name}
           onChangeText={setName}
         />
         <TextInput
           placeholder="email@example.com"
+          placeholderTextColor="#9CA3AF"
           style={{
             borderWidth: 1,
             padding: "5%",
@@ -74,13 +75,13 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
-            placeholderTextColor: "#9CA3AF",
           }}
           value={email}
           onChangeText={setEmail}
         />
         <TextInput
           placeholder="Address please..."
+          placeholderTextColor="#9CA3AF"
           style={{
             borderWidth: 1,
             padding: "5%",
@@ -88,13 +89,13 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
-            placeholderTextColor: "#9CA3AF",
           }}
           value={address}
           onChangeText={setAddress}
         />
         <TextInput
           placeholder="Phone"
+          placeholderTextColor="#9CA3AF"
           style={{
             borderWidth: 1,
             padding: "5%",
@@ -102,7 +103,6 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
-            placeholderTextColor: "#9CA3AF",
           }}
           value={phone}
           onChangeText={setPhone}
@@ -111,6 +111,7 @@ const register = () => {
         <View style={{ position: "relative", width: "100%" }}>
           <TextInput
             placeholder="enter password"
+            placeholderTextColor="#9CA3AF"
             secureTextEntry={!showPassword}
             style={{
               backgroundColor: "#fff",
@@ -119,7 +120,6 @@ const register = () => {
               borderRadius: 20,
               borderColor: "#1d4ed8",
               borderWidth: 1,
-              placeholderTextColor: "#9CA3AF",
             }}
             value={password}
             onChangeText={setPassword}

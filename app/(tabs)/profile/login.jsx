@@ -47,6 +47,7 @@ const Login = () => {
 
       <TextInput
         placeholder="email@example.com"
+        placeholderTextColor="#9CA3AF"
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -64,6 +65,7 @@ const Login = () => {
       <View style={{ position: "relative", width: "100%" }}>
         <TextInput
           placeholder="enter password"
+          placeholderTextColor="#9CA3AF"
           secureTextEntry={!showPassword}
           style={{
             backgroundColor: "#fff",
@@ -72,7 +74,6 @@ const Login = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             borderWidth: 1,
-            placeholderTextColor: "#9CA3AF",
           }}
           value={password}
           onChangeText={setPassword}
@@ -126,7 +127,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: "#1d4ed8",
     backgroundColor: "#fff",
-    placeholderTextColor: "#9CA3AF",
   },
   button: {
     borderRadius: 20,
