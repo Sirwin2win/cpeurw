@@ -86,11 +86,13 @@ export default function Index() {
       showsVerticalScrollIndicator={false}
     >
       {/* 🖼 Banner */}
-      <Image
-        source={require("../../assets/images/coolAnim.gif")}
-        style={styles.banner}
-      />
-      <Text style={styles.brandTitle}>CPEURW Dispenser</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          source={require("../../assets/images/fabianLogo.jpg")}
+          style={styles.banner}
+        />
+      </View>
+      {/* <Text style={styles.brandTitle}>CPEURW Dispenser</Text> */}
 
       {/* 🎞 Slider */}
       <Animated.FlatList
@@ -173,8 +175,9 @@ const styles = StyleSheet.create({
   },
 
   banner: {
-    width: "100%",
-    height: isTablet ? 350 : 240,
+    width: "80%",
+    height: isTablet ? 250 : 200,
+    borderRadius: 50,
   },
 
   centerText: {

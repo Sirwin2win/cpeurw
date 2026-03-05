@@ -80,7 +80,7 @@ const register = () => {
           onChangeText={setEmail}
         />
         <TextInput
-          placeholder="Address please..."
+          placeholder="--enter your address--"
           placeholderTextColor="#9CA3AF"
           style={{
             borderWidth: 1,
@@ -94,7 +94,7 @@ const register = () => {
           onChangeText={setAddress}
         />
         <TextInput
-          placeholder="Phone"
+          placeholder="--phone number--"
           placeholderTextColor="#9CA3AF"
           style={{
             borderWidth: 1,
