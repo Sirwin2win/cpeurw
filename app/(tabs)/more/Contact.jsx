@@ -50,6 +50,7 @@ const Contact = () => {
       <TextInput
         style={styles.input}
         placeholder="Name"
+        placeholderTextColor="#9CA3AF"
         value={name}
         onChangeText={setName}
       />
@@ -57,6 +58,7 @@ const Contact = () => {
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor="#9CA3AF"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -65,6 +67,7 @@ const Contact = () => {
       <TextInput
         style={[styles.input, styles.textArea]}
         placeholder="Message"
+        placeholderTextColor="#9CA3AF"
         value={message}
         onChangeText={setMessage}
         multiline
