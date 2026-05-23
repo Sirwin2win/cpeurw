@@ -26,6 +26,7 @@ const SendMail = () => {
     <View style={{ marginTop: 10, padding: 20 }}>
       <TextInput
         placeholder="email@example.com"
+        placeholderTextColor="#9CA3AF"
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"

@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Linking,
   StyleSheet,
   Text,
@@ -11,6 +12,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteMe } from "../../../features/auth/authSlice";
 import { addMail } from "../../../features/mail/mailSlice";
 
 const Contact = () => {
@@ -42,6 +44,44 @@ const Contact = () => {
     setName("");
     setEmail("");
     setMessage("");
+  };
+
+  // delete account logic
+  let user;
+  user = useSelector((state) => state.auth.user);
+  // const deleteError = useState((state) => state.auth.error);
+  console.log(user);
+  const handleDelete = () => {
+    if (!user) {
+      Alert.alert("Error", "Please login first");
+      return;
+    }
+
+    Alert.alert(
+      "Delete Account",
+      "Are you sure you want to delete your account?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await dispatch(deleteMe(user.id)).unwrap();
+
+              router.replace("/(tabs)");
+
+              Alert.alert("Success", "Account deleted successfully");
+            } catch (error) {
+              Alert.alert("Error", error?.message || "Something went wrong");
+            }
+          },
+        },
+      ],
+    );
   };
   return (
     <View style={styles.container}>
@@ -78,16 +118,25 @@ const Contact = () => {
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Send</Text>
       </TouchableOpacity>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <TouchableOpacity style={{ marginTop: 50 }} onPress={openWhatsApp}>
+          <Text>
+            <Image
+              source={require("../../../assets/images/wha.jpg")}
+              style={{ height: 80, width: 80 }}
+            />
+          </Text>
+          {/* <Text><Ionicons name="chatbubble-outline" size={24} color="green" /></Text> */}
+        </TouchableOpacity>
 
-      <TouchableOpacity style={{ marginTop: 50 }} onPress={openWhatsApp}>
-        <Text>
-          <Image
-            source={require("../../../assets/images/wha.jpg")}
-            style={{ height: 80, width: 80 }}
-          />
-        </Text>
-        {/* <Text><Ionicons name="chatbubble-outline" size={24} color="green" /></Text> */}
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.delete}
+          // disabled={!user}
+          onPress={handleDelete}
+        >
+          <Text style={styles.deleteText}>Delete My Account</Text>
+        </TouchableOpacity>
+      </View>
       {/* <Text style={{textAlign:'center'}}>Send us an email for any request</Text> */}
     </View>
   );
@@ -128,5 +177,18 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  delete: {
+    height: 50,
+    width: 150,
+    marginTop: 60,
+    borderRadius: 20,
+    backgroundColor: "red",
+  },
+  deleteText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 15,
   },
 });

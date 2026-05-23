@@ -34,6 +34,22 @@ export const updateRole = createAsyncThunk(
 );
 
 /**
+ * Delete my Account
+ */
+
+export const deleteMe = createAsyncThunk(
+  "users/deleteMe",
+  async (id, thunkAPI) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+
+/**
  * Get Users
  */
 export const getUsers = createAsyncThunk(
@@ -238,6 +254,24 @@ const authSlice = createSlice({
       // LOGOUT
       .addCase(logout.fulfilled, (state) => {
         state.token = null;
+      })
+      // Delete Me
+      .addCase(deleteMe.pending, (state) => {
+        state.status = "loading";
+      })
+
+      .addCase(deleteMe.fulfilled, (state, action) => {
+        state.status = "succeeded";
+
+        // Remove deleted user
+        // state.users = state.users.filter((user) => user.id !== action.payload);
+        state.user = null;
+      })
+
+      .addCase(deleteMe.rejected, (state, action) => {
+        state.status = "failed";
+        state.error =
+          action.payload?.message || action.payload || "Something went wrong";
       });
   },
 });

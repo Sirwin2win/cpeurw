@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
@@ -63,27 +64,19 @@ const data = [
 const Index = () => {
   const router = useRouter();
   return (
-    <View style={{ marginVertical: 50 }}>
-      <View style={{ padding: 20, backgroundColor: "#fff" }}>
+    <View style={{ marginVertical: 50, flex: 1, flexDirection: "column" }}>
+      <View style={styles.topContainer}>
         <Link href="/more/Contact" asChild>
-          <Pressable>
-            <Text style={{ color: "#1d40d8", fontSize: 16 }}>Contact Us</Text>
+          <Pressable style={styles.topButton}>
+            <Ionicons name="mail" size={20} color="#fff" />
+            <Text style={styles.topText}>Contact Us</Text>
           </Pressable>
         </Link>
 
         <Link href="/profile/sidebar" asChild>
-          <Pressable>
-            <Text
-              style={{
-                flex: 1,
-                marginTop: -20,
-                color: "#1d40d8",
-                fontSize: 16,
-                alignSelf: "flex-end",
-              }}
-            >
-              Dashboard
-            </Text>
+          <Pressable style={styles.topButton}>
+            <Ionicons name="grid" size={20} color="#fff" />
+            <Text style={styles.topText}>Dashboard</Text>
           </Pressable>
         </Link>
       </View>
@@ -128,5 +121,25 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     textAlign: "center",
+  },
+  topContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+
+  topButton: {
+    backgroundColor: "#1d40d8",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    flex: 1,
+    marginHorizontal: 5,
+  },
+
+  topText: {
+    color: "#fff",
+    fontSize: 16,
+    marginTop: 5,
   },
 });

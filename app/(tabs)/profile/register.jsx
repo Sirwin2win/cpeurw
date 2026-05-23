@@ -61,6 +61,7 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
+            color: "black",
           }}
           value={name}
           onChangeText={setName}
@@ -75,6 +76,7 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
+            color: "black",
           }}
           value={email}
           onChangeText={setEmail}
@@ -89,6 +91,7 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
+            color: "black",
           }}
           value={address}
           onChangeText={setAddress}
@@ -103,6 +106,7 @@ const register = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             backgroundColor: "#fff",
+            color: "black",
           }}
           value={phone}
           onChangeText={setPhone}
@@ -120,6 +124,7 @@ const register = () => {
               borderRadius: 20,
               borderColor: "#1d4ed8",
               borderWidth: 1,
+              color: "black",
             }}
             value={password}
             onChangeText={setPassword}

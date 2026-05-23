@@ -74,6 +74,7 @@ const Login = () => {
             borderRadius: 20,
             borderColor: "#1d4ed8",
             borderWidth: 1,
+            color: "black",
           }}
           value={password}
           onChangeText={setPassword}
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: "#1d4ed8",
     backgroundColor: "#fff",
+    color: "black",
   },
   button: {
     borderRadius: 20,
