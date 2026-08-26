@@ -153,7 +153,9 @@ const register = () => {
           style={{
             borderRadius: 20,
             backgroundColor: "#1d4ed8",
-            height: 40,
+            height: 65,
+            paddingBottom: 15,
+            paddingTop: 15,
           }}
           onPress={onRegister}
           disabled={loading}
