@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
 // const API = 'https://fakestoreapi.com/products'
-const API = 'https://api.buywaterh2o.com/api/products'
+const API = 'https://api2.buywaterh2o.com/api/products'
 
 // Fetch all products
 export const fetchProducts = createAsyncThunk(
