@@ -4,7 +4,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const TOKEN_KEY = "userToken";
-const API_URL = "https://api.buywaterh2o.com/api/auth";
+const API_URL = "https://api2.buywaterh2o.com/api/auth";
 
 /**
  * Load token from AsyncStorage on app start

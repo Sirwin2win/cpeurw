@@ -90,7 +90,7 @@ const CartPage = () => {
         <View style={styles.container} key={item.id}>
           <Image
             style={{ height: undefined, width: isTablet ? "45%" : "30%" }}
-            source={{ uri: `https://api.buywaterh2o.com/${item.image}` }}
+            source={{ uri: `https://api2.buywaterh2o.com/${item.image}` }}
           />
           <View>
             <Text
